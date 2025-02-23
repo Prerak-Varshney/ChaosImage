@@ -6,13 +6,28 @@ const Home = () => {
   const [prompt, setPrompt] = React.useState<string>('');
   const [imageWidth, setImageWidth] = React.useState<string>('');
   const [imageHeight, setImageHeight] = React.useState<string>('');
-  const [imageCount, setImageCount] = React.useState<string>('');
-  // const [images, setImages] = React.useState<string[]>([]);
+
+  const [widthForImage, setWidthForImage] = React.useState<number>();
+  const [heightForImage, setHeightForImage] = React.useState<number>();
+
+  const [imageCount, setImageCount] = React.useState<string | number>('');
+  const [images, setImages] = React.useState<string[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleGenerateImage = async () => {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setWidthForImage(parseInt(imageWidth));
+    setHeightForImage(parseInt(imageHeight));
+    setImageCount(parseInt(imageCount as string));
+    
+    setImageWidth('');
+    setImageHeight('');
+    setImageCount('');
+    
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setImages(['image1', 'image2', 'image3', 'image4']);
+
     setIsLoading(false);
   };
 
@@ -33,17 +48,17 @@ const Home = () => {
           <div className='w-full min-h-20 flex flex-col md:flex-row items-center justify-center gap-4'>
             <AnimatedInput 
               inputText={'Width'}
-              value={imageWidth}
+              value={imageWidth as string}
               setValue={setImageWidth}
             />
             <AnimatedInput 
               inputText={'Height'}
-              value={imageHeight}
+              value={imageHeight as string}
               setValue={setImageHeight}
             />
             <AnimatedInput 
               inputText={'Count'}
-              value={imageCount}
+              value={imageCount as string}
               setValue={setImageCount}
             />
           </div>
@@ -63,17 +78,23 @@ const Home = () => {
             </button>
           </div>
         </div>
+        <div className='min-h-[calc(100vh-30rem)] flex items-center justify-center'> 
+          <div className={`w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20`}>
 
-        <div className={`w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
-          {/* {images.map((image, index) => (
-            <img key={index} src={image} alt={`image-${index}`} className={`w-full h-40 object-cover rounded-lg`} />
-          ))} */}
-
-          <div className={`w-${imageWidth} h-${imageHeight} bg-gray-300 rounded-lg`}>
-            Image 1
+            {
+              images.map((image, index) => (
+                <div 
+                  key={index}
+                  className={`w-40 h-40 bg-gray-300 rounded-lg`}
+                  style={{ width: widthForImage || 160, height: heightForImage || 160 }}
+                >
+                  {image}
+                </div>
+              ))
+            
+            }
           </div>
         </div>
-
       </div>
     </div>
   );
