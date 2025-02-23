@@ -24,8 +24,8 @@ const Home = () => {
           <h1 className={'text-2xl sm:text-4xl font-bold'}>
             Welcome to ChaosImage
           </h1>
-          <h1 className={'text-md sm:text-xl font-bold'}>
-            A place to generate images from text for free!!!
+          <h1 className={'text-md sm:text-xl'}>
+            A place to generate images from text for<span className='font-bold'> free!!!</span>
           </h1>
         </div>
 
@@ -63,6 +63,17 @@ const Home = () => {
             </button>
           </div>
         </div>
+
+        <div className={`w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
+          {/* {images.map((image, index) => (
+            <img key={index} src={image} alt={`image-${index}`} className={`w-full h-40 object-cover rounded-lg`} />
+          ))} */}
+
+          <div className={`w-${imageWidth} h-${imageHeight} bg-gray-300 rounded-lg`}>
+            Image 1
+          </div>
+        </div>
+
       </div>
     </div>
   );

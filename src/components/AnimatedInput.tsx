@@ -12,7 +12,14 @@ const AnimatedInput = ({inputText, value, setValue}: AnimatedInputProps) => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-            <label className='absolute top-3 left-2 bg-white text-gray-400 peer-focus:text-blue-500 peer-focus:scale-75 peer-focus:left-1 peer-focus:-top-3 peer-focus:z-10 transition-all duration-300'>{inputText}</label>
+            <label className={`absolute bg-white text-gray-400 transition-all duration-300 peer-focus:text-blue-500
+                ${value === '' ? 'top-3 left-2 peer-focus:scale-75 peer-focus:left-1 peer-focus:-top-3 peer-focus:z-10' 
+                : 
+                'left-1 -top-3 z-10 scale-75'
+                }`
+            }>
+                    {inputText}
+            </label>
         </div>
     )
 }
